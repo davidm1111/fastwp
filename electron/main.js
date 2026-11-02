@@ -19,7 +19,7 @@ function createWindow() {
     center: true,
     backgroundColor: '#13161a',
     title: 'FastWP - Local WordPress',
-    icon: path.join(__dirname, '../FastWP.ico'),
+    icon: path.join(__dirname, '../FastWP-fuchsia.ico'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
