@@ -95,28 +95,48 @@ export default function App() {
         unsubLogs && unsubLogs();
         unsubEmails && unsubEmails();
       };
-    } else {
-      // Browser mode: poll logs and emails every 2 seconds
-      const interval = setInterval(async () => {
-        if (selectedSiteId) {
-          try {
-            const [logsRes, emailsRes] = await Promise.all([
-              fetch(`/api/sites/${selectedSiteId}/logs`),
-              fetch(`/api/sites/${selectedSiteId}/emails`)
-            ]);
-            if (logsRes.ok) {
-              const logs = await logsRes.json();
-              setSiteLogs((prev) => ({ ...prev, [selectedSiteId]: logs || [] }));
-            }
-            if (emailsRes.ok) {
-              const emails = await emailsRes.json();
-              setSiteEmails((prev) => ({ ...prev, [selectedSiteId]: emails || [] }));
-            }
-          } catch {}
-        }
-      }, 2000);
-      return () => clearInterval(interval);
     }
+  }, []);
+
+  const fetchSiteEmails = async (siteId) => {
+    if (!siteId) return;
+    try {
+      if (window.api) {
+        const emails = await window.api.getEmails(siteId);
+        setSiteEmails((prev) => ({ ...prev, [siteId]: emails || [] }));
+      } else {
+        const res = await fetch(`/api/sites/${siteId}/emails`);
+        if (res.ok) {
+          const emails = await res.json();
+          setSiteEmails((prev) => ({ ...prev, [siteId]: emails || [] }));
+        }
+      }
+    } catch (e) {
+      console.error('Error fetching site emails:', e);
+    }
+  };
+
+  useEffect(() => {
+    if (!selectedSiteId) return;
+
+    fetchSiteEmails(selectedSiteId);
+
+    const interval = setInterval(async () => {
+      fetchSiteEmails(selectedSiteId);
+
+      // In browser mode, poll logs as well
+      if (!window.api) {
+        try {
+          const logsRes = await fetch(`/api/sites/${selectedSiteId}/logs`);
+          if (logsRes.ok) {
+            const logs = await logsRes.json();
+            setSiteLogs((prev) => ({ ...prev, [selectedSiteId]: logs || [] }));
+          }
+        } catch {}
+      }
+    }, 2000);
+
+    return () => clearInterval(interval);
   }, [selectedSiteId]);
 
   const selectedSite = sites.find((s) => s.id === selectedSiteId) || sites[0];
@@ -353,6 +373,7 @@ export default function App() {
             onOpenFolder={handleOpenFolder}
             onOpenTerminal={handleOpenTerminal}
             onOpenUrl={handleOpenUrl}
+            onRefreshEmails={fetchSiteEmails}
             onClearEmails={handleClearEmails}
             onDelete={handleDeleteSite}
           />

@@ -23,7 +23,8 @@ import {
   BookmarkPlus,
   Download,
   StickyNote,
-  X
+  X,
+  RotateCw
 } from 'lucide-react';
 
 export default function SiteDetails({
@@ -38,6 +39,7 @@ export default function SiteDetails({
   onOpenFolder,
   onOpenTerminal,
   onOpenUrl,
+  onRefreshEmails,
   onClearEmails,
   onDelete
 }) {
@@ -46,6 +48,13 @@ export default function SiteDetails({
   const [selectedEmail, setSelectedEmail] = useState(null);
   const [notes, setNotes] = useState(site.notes || '');
   const [savingNotes, setSavingNotes] = useState(false);
+  const [refreshingEmails, setRefreshingEmails] = useState(false);
+
+  const handleRefreshEmails = async () => {
+    setRefreshingEmails(true);
+    if (onRefreshEmails) await onRefreshEmails(site.id);
+    setTimeout(() => setRefreshingEmails(false), 500);
+  };
   const saveTimeoutRef = useRef(null);
 
   useEffect(() => {
@@ -485,14 +494,25 @@ export default function SiteDetails({
                   Captura todos los correos salientes enviados mediante <code className="text-emerald-400">wp_mail()</code> o PHP <code className="text-emerald-400">mail()</code>.
                 </p>
               </div>
-              {emails.length > 0 && (
+              <div className="flex items-center space-x-2">
                 <button
-                  onClick={() => onClearEmails(site.id)}
-                  className="px-2.5 py-1 text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 rounded border border-slate-700"
+                  onClick={handleRefreshEmails}
+                  disabled={refreshingEmails}
+                  className="flex items-center space-x-1.5 px-3 py-1.5 bg-[#252c38] hover:bg-[#323b4b] text-slate-200 rounded-lg text-xs font-medium transition-colors"
+                  title="Comprobar nuevos correos"
                 >
-                  Limpiar bandeja
+                  <RotateCw className={`w-3.5 h-3.5 text-blue-400 ${refreshingEmails ? 'animate-spin' : ''}`} />
+                  <span>Actualizar</span>
                 </button>
-              )}
+                {emails.length > 0 && (
+                  <button
+                    onClick={() => onClearEmails(site.id)}
+                    className="px-3 py-1.5 text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg border border-slate-700 font-medium transition-colors"
+                  >
+                    Limpiar bandeja
+                  </button>
+                )}
+              </div>
             </div>
 
             {emails.length === 0 ? (
