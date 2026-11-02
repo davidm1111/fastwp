@@ -325,6 +325,20 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  if (pathname.startsWith('/api/sites/') && pathname.endsWith('/emails') && req.method === 'GET') {
+    const siteId = pathname.split('/')[3];
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(siteManager.getEmails(siteId)));
+    return;
+  }
+
+  if (pathname.startsWith('/api/sites/') && pathname.endsWith('/emails') && req.method === 'DELETE') {
+    const siteId = pathname.split('/')[3];
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(siteManager.clearEmails(siteId)));
+    return;
+  }
+
   if (pathname.startsWith('/api/sites/') && req.method === 'DELETE') {
     const siteId = pathname.split('/')[3];
     try {

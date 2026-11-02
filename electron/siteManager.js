@@ -550,11 +550,31 @@ $sent = @mail($to, $subject, $message, $headers);
   }
 
   getEmails(siteId) {
-    return this.capturedEmails.get(siteId) || [];
+    const memEmails = this.capturedEmails.get(siteId) || [];
+    const site = this.sites.find(s => s.id === siteId);
+    if (site && site.publicPath) {
+      const file = path.join(site.publicPath, 'wp-content', 'database', 'captured_emails.json');
+      if (fs.existsSync(file)) {
+        try {
+          const fileEmails = JSON.parse(fs.readFileSync(file, 'utf8'));
+          if (Array.isArray(fileEmails)) {
+            return fileEmails;
+          }
+        } catch (e) {}
+      }
+    }
+    return memEmails;
   }
 
   clearEmails(siteId) {
     this.capturedEmails.set(siteId, []);
+    const site = this.sites.find(s => s.id === siteId);
+    if (site && site.publicPath) {
+      const file = path.join(site.publicPath, 'wp-content', 'database', 'captured_emails.json');
+      if (fs.existsSync(file)) {
+        try { fs.unlinkSync(file); } catch (e) {}
+      }
+    }
     return [];
   }
 

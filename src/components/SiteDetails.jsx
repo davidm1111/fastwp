@@ -22,7 +22,8 @@ import {
   Trash2,
   BookmarkPlus,
   Download,
-  StickyNote
+  StickyNote,
+  X
 } from 'lucide-react';
 
 export default function SiteDetails({
@@ -597,6 +598,57 @@ export default function SiteDetails({
           </div>
         )}
       </div>
+
+      {/* Email Viewer Modal */}
+      {selectedEmail && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+          <div className="bg-[#181c23] border border-[#2b333f] w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
+            <div className="flex items-center justify-between p-4 border-b border-[#2b333f]">
+              <div className="flex items-center space-x-2.5">
+                <div className="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center">
+                  <Mail className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-semibold text-white">{selectedEmail.subject}</h3>
+                  <div className="text-[11px] text-slate-400">
+                    Para: <span className="text-slate-200">{selectedEmail.to}</span> &bull; {selectedEmail.date}
+                  </div>
+                </div>
+              </div>
+              <button
+                onClick={() => setSelectedEmail(null)}
+                className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="p-5 overflow-y-auto flex-1 font-mono text-xs text-slate-200 whitespace-pre-wrap leading-relaxed select-text bg-[#111418]">
+              {selectedEmail.message || selectedEmail.body || '(Sin contenido)'}
+            </div>
+            <div className="p-3 bg-[#14171d] border-t border-[#2b333f] flex items-center justify-between text-xs">
+              <span className="text-slate-500">De: {selectedEmail.from || 'wordpress@local.fast'}</span>
+              <button
+                onClick={() => {
+                  copyToClipboard(selectedEmail.message || selectedEmail.body || '', 'emailBody');
+                }}
+                className="flex items-center space-x-1 px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-md font-sans transition-colors"
+              >
+                {copiedField === 'emailBody' ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                    <span className="text-emerald-400">¡Copiado!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3.5 h-3.5" />
+                    <span>Copiar Contenido</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

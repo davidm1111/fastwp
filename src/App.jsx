@@ -96,13 +96,22 @@ export default function App() {
         unsubEmails && unsubEmails();
       };
     } else {
-      // Browser mode: poll logs every 2 seconds
+      // Browser mode: poll logs and emails every 2 seconds
       const interval = setInterval(async () => {
         if (selectedSiteId) {
           try {
-            const res = await fetch(`/api/sites/${selectedSiteId}/logs`);
-            const logs = await res.json();
-            setSiteLogs((prev) => ({ ...prev, [selectedSiteId]: logs || [] }));
+            const [logsRes, emailsRes] = await Promise.all([
+              fetch(`/api/sites/${selectedSiteId}/logs`),
+              fetch(`/api/sites/${selectedSiteId}/emails`)
+            ]);
+            if (logsRes.ok) {
+              const logs = await logsRes.json();
+              setSiteLogs((prev) => ({ ...prev, [selectedSiteId]: logs || [] }));
+            }
+            if (emailsRes.ok) {
+              const emails = await emailsRes.json();
+              setSiteEmails((prev) => ({ ...prev, [selectedSiteId]: emails || [] }));
+            }
           } catch {}
         }
       }, 2000);
@@ -296,9 +305,11 @@ export default function App() {
     }
   };
 
-  const handleClearEmails = (siteId) => {
+  const handleClearEmails = async (siteId) => {
     if (window.api) {
       window.api.clearEmails(siteId);
+    } else {
+      await fetch(`/api/sites/${siteId}/emails`, { method: 'DELETE' }).catch(() => {});
     }
     setSiteEmails((prev) => ({ ...prev, [siteId]: [] }));
   };
