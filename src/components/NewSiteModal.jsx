@@ -57,7 +57,7 @@ export default function NewSiteModal({ isOpen, onClose, onCreateSite, blueprints
         {/* Header */}
         <div className="px-6 py-4 border-b border-[#262d38] flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <div className="w-6 h-6 rounded-md bg-emerald-500 flex items-center justify-center text-black">
+            <div className="w-6 h-6 rounded-md bg-gradient-to-tr from-fuchsia-600 to-pink-500 flex items-center justify-center text-white">
               <Zap className="w-4 h-4 fill-current" />
             </div>
             <h2 className="font-bold text-sm text-white">Añadir Nuevo Sitio Local</h2>
@@ -85,7 +85,7 @@ export default function NewSiteModal({ isOpen, onClose, onCreateSite, blueprints
                   placeholder="Mi Tienda WordPress"
                   value={siteName}
                   onChange={(e) => handleNameChange(e.target.value)}
-                  className="w-full bg-[#111418] border border-[#2d3542] rounded-lg px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-[#111418] border border-[#2d3542] rounded-lg px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-fuchsia-500"
                 />
               </div>
 
@@ -97,7 +97,7 @@ export default function NewSiteModal({ isOpen, onClose, onCreateSite, blueprints
                   type="text"
                   value={domain}
                   onChange={(e) => setDomain(e.target.value)}
-                  className="w-full bg-[#111418] border border-[#2d3542] rounded-lg px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 font-mono"
+                  className="w-full bg-[#111418] border border-[#2d3542] rounded-lg px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-fuchsia-500 font-mono"
                 />
               </div>
 
@@ -108,7 +108,7 @@ export default function NewSiteModal({ isOpen, onClose, onCreateSite, blueprints
                 <select
                   value={selectedBlueprint}
                   onChange={(e) => setSelectedBlueprint(e.target.value)}
-                  className="w-full bg-[#111418] border border-[#2d3542] rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-[#111418] border border-[#2d3542] rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-fuchsia-500"
                 >
                   <option value="">🌟 WordPress Base (Limpio)</option>
                   {blueprints.map((bp, i) => (
@@ -130,11 +130,11 @@ export default function NewSiteModal({ isOpen, onClose, onCreateSite, blueprints
                     onClick={() => setEnvType('fast')}
                     className={`p-3.5 rounded-xl border cursor-pointer transition-all ${
                       envType === 'fast'
-                        ? 'bg-emerald-950/40 border-emerald-500 text-white shadow-sm'
+                        ? 'bg-fuchsia-950/40 border-fuchsia-500 text-white shadow-sm'
                         : 'bg-[#1e232b] border-[#29303c] text-slate-400 hover:text-slate-200'
                     }`}
                   >
-                    <div className="flex items-center space-x-2 text-xs font-bold text-emerald-400">
+                    <div className="flex items-center space-x-2 text-xs font-bold text-fuchsia-400">
                       <Zap className="w-3.5 h-3.5 fill-current" />
                       <span>Ultra Rápido (Recomendado)</span>
                     </div>
@@ -147,12 +147,12 @@ export default function NewSiteModal({ isOpen, onClose, onCreateSite, blueprints
                     onClick={() => setEnvType('custom')}
                     className={`p-3.5 rounded-xl border cursor-pointer transition-all ${
                       envType === 'custom'
-                        ? 'bg-emerald-950/40 border-emerald-500 text-white shadow-sm'
+                        ? 'bg-fuchsia-950/40 border-fuchsia-500 text-white shadow-sm'
                         : 'bg-[#1e232b] border-[#29303c] text-slate-400 hover:text-slate-200'
                     }`}
                   >
                     <div className="flex items-center space-x-2 text-xs font-bold text-slate-200">
-                      <Database className="w-3.5 h-3.5 text-blue-400" />
+                      <Database className="w-3.5 h-3.5 text-violet-400" />
                       <span>Estándar (MySQL)</span>
                     </div>
                     <p className="text-[11px] text-slate-400 mt-1 leading-snug">
@@ -252,7 +252,7 @@ export default function NewSiteModal({ isOpen, onClose, onCreateSite, blueprints
                 type="button"
                 disabled={!siteName.trim()}
                 onClick={() => setStep(2)}
-                className="flex items-center space-x-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-slate-950 font-bold rounded-lg text-xs transition-all"
+                className="flex items-center space-x-1.5 px-4 py-2 bg-gradient-to-r from-fuchsia-600 to-pink-600 hover:from-fuchsia-500 hover:to-pink-500 disabled:opacity-50 text-white font-bold rounded-lg text-xs transition-all shadow-sm shadow-fuchsia-950/40"
               >
                 <span>Continuar</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -261,7 +261,7 @@ export default function NewSiteModal({ isOpen, onClose, onCreateSite, blueprints
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="flex items-center space-x-1.5 px-5 py-2 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-slate-950 font-bold rounded-lg text-xs shadow-md shadow-emerald-950/40 transition-all"
+                className="flex items-center space-x-1.5 px-5 py-2 bg-gradient-to-r from-fuchsia-600 to-pink-600 hover:from-fuchsia-500 hover:to-pink-500 disabled:opacity-50 text-white font-bold rounded-lg text-xs shadow-md shadow-fuchsia-950/40 transition-all"
               >
                 {isSubmitting ? (
                   <span>Creando sitio...</span>

@@ -65,7 +65,7 @@ export default function WebTerminal({ siteId, sitePath }) {
       {/* Header */}
       <div className="px-4 py-2.5 bg-[#14171d] border-b border-[#262d38] flex items-center justify-between">
         <div className="flex items-center space-x-2 text-slate-300">
-          <Terminal className="w-4 h-4 text-emerald-400" />
+          <Terminal className="w-4 h-4 text-fuchsia-400" />
           <span className="font-semibold text-xs">Terminal Web Integrado</span>
           <span className="text-[10px] text-slate-500 font-sans">app/public</span>
         </div>
@@ -100,7 +100,7 @@ export default function WebTerminal({ siteId, sitePath }) {
         {history.map((entry, idx) => (
           <div key={idx} className="whitespace-pre-wrap">
             {entry.type === 'input' && (
-              <div className="text-emerald-400 flex items-start space-x-2">
+              <div className="text-fuchsia-400 flex items-start space-x-2">
                 <span className="text-slate-500 shrink-0">&gt;</span>
                 <span className="font-semibold">{entry.text}</span>
               </div>
@@ -111,7 +111,7 @@ export default function WebTerminal({ siteId, sitePath }) {
           </div>
         ))}
         {loading && (
-          <div className="text-emerald-400/70 pl-4 flex items-center space-x-2 animate-pulse">
+          <div className="text-fuchsia-400/70 pl-4 flex items-center space-x-2 animate-pulse">
             <span>Ejecutando comando...</span>
           </div>
         )}
@@ -126,7 +126,7 @@ export default function WebTerminal({ siteId, sitePath }) {
         }}
         className="px-3 py-2 bg-[#14171d] border-t border-[#262d38] flex items-center space-x-2"
       >
-        <span className="text-emerald-400 font-bold shrink-0">&gt;</span>
+        <span className="text-fuchsia-400 font-bold shrink-0">&gt;</span>
         <input
           ref={inputRef}
           type="text"
@@ -139,7 +139,7 @@ export default function WebTerminal({ siteId, sitePath }) {
         <button
           type="submit"
           disabled={!command.trim() || loading}
-          className="p-1.5 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-30 text-black rounded transition-all"
+          className="p-1.5 bg-gradient-to-r from-fuchsia-600 to-pink-600 hover:from-fuchsia-500 hover:to-pink-500 disabled:opacity-30 text-white rounded transition-all"
         >
           <Send className="w-3.5 h-3.5" />
         </button>

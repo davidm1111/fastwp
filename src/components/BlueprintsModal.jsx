@@ -10,7 +10,7 @@ export default function BlueprintsModal({ isOpen, onClose, blueprints, onDeleteB
         {/* Header */}
         <div className="px-6 py-4 border-b border-[#262d38] flex items-center justify-between">
           <div className="flex items-center space-x-2.5">
-            <div className="w-7 h-7 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400">
+            <div className="w-7 h-7 rounded-lg bg-violet-500/10 border border-violet-500/30 flex items-center justify-center text-violet-400">
               <Layers className="w-4 h-4" />
             </div>
             <div>
@@ -43,7 +43,7 @@ export default function BlueprintsModal({ isOpen, onClose, blueprints, onDeleteB
                 className="flex items-center justify-between p-3.5 bg-[#1f242c] border border-[#2b333f] hover:border-[#384353] rounded-xl transition-all"
               >
                 <div className="flex items-center space-x-3 min-w-0">
-                  <div className="w-8 h-8 rounded-lg bg-emerald-950/60 border border-emerald-800/60 flex items-center justify-center text-emerald-400 shrink-0">
+                  <div className="w-8 h-8 rounded-lg bg-fuchsia-950/60 border border-fuchsia-800/60 flex items-center justify-center text-fuchsia-400 shrink-0">
                     <Sparkles className="w-4 h-4" />
                   </div>
                   <div className="min-w-0">

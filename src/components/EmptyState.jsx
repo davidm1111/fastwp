@@ -4,8 +4,8 @@ import { Plus, Zap, Cpu, ShieldCheck, Rocket } from 'lucide-react';
 export default function EmptyState({ onOpenNewSiteModal }) {
   return (
     <div className="flex-1 flex flex-col items-center justify-center p-8 bg-[#1a1e24] text-center select-none">
-      <div className="w-16 h-16 rounded-2xl bg-emerald-950/60 border border-emerald-800/80 flex items-center justify-center text-emerald-400 mb-6 shadow-xl shadow-emerald-950/50">
-        <Rocket className="w-8 h-8 text-emerald-400" />
+      <div className="w-16 h-16 rounded-2xl bg-fuchsia-950/60 border border-fuchsia-800/80 flex items-center justify-center text-fuchsia-400 mb-6 shadow-xl shadow-fuchsia-950/50">
+        <Rocket className="w-8 h-8 text-fuchsia-400" />
       </div>
 
       <h2 className="text-xl font-bold text-white mb-2">Bienvenido a FastWP</h2>
@@ -15,7 +15,7 @@ export default function EmptyState({ onOpenNewSiteModal }) {
 
       <button
         onClick={onOpenNewSiteModal}
-        className="flex items-center space-x-2 py-3 px-6 bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold rounded-xl text-xs shadow-lg shadow-emerald-950/50 transition-all hover:scale-105 active:scale-95"
+        className="flex items-center space-x-2 py-3 px-6 bg-gradient-to-r from-fuchsia-600 to-pink-600 hover:from-fuchsia-500 hover:to-pink-500 text-white font-bold rounded-xl text-xs shadow-lg shadow-fuchsia-950/50 transition-all hover:scale-105 active:scale-95"
       >
         <Plus className="w-4 h-4 stroke-[3]" />
         <span>Crear mi primer sitio WordPress</span>
@@ -23,7 +23,7 @@ export default function EmptyState({ onOpenNewSiteModal }) {
 
       <div className="grid grid-cols-3 gap-6 max-w-xl mt-12 text-left">
         <div className="p-4 bg-[#14171d] rounded-xl border border-[#252c37]">
-          <Zap className="w-5 h-5 text-emerald-400 mb-2" />
+          <Zap className="w-5 h-5 text-fuchsia-400 mb-2" />
           <div className="text-xs font-semibold text-slate-200">Arranque en &lt; 0.5s</div>
           <div className="text-[11px] text-slate-400 mt-1">
             Motor ultra optimizado con SQLite o MySQL directo.
@@ -31,7 +31,7 @@ export default function EmptyState({ onOpenNewSiteModal }) {
         </div>
 
         <div className="p-4 bg-[#14171d] rounded-xl border border-[#252c37]">
-          <Cpu className="w-5 h-5 text-emerald-400 mb-2" />
+          <Cpu className="w-5 h-5 text-violet-400 mb-2" />
           <div className="text-xs font-semibold text-slate-200">Consumo Mínimo</div>
           <div className="text-[11px] text-slate-400 mt-1">
             Consume hasta un 80% menos de RAM que LocalWP tradicional.
@@ -39,7 +39,7 @@ export default function EmptyState({ onOpenNewSiteModal }) {
         </div>
 
         <div className="p-4 bg-[#14171d] rounded-xl border border-[#252c37]">
-          <ShieldCheck className="w-5 h-5 text-emerald-400 mb-2" />
+          <ShieldCheck className="w-5 h-5 text-fuchsia-400 mb-2" />
           <div className="text-xs font-semibold text-slate-200">Mail Catcher & Logs</div>
           <div className="text-[11px] text-slate-400 mt-1">
             Captura correos salientes y consulta errores de PHP en vivo.

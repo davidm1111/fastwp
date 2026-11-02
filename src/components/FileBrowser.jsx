@@ -73,7 +73,7 @@ export default function FileBrowser({ siteId, onOpenFolder, rootPath }) {
           <button
             onClick={() => loadFiles('')}
             className={`font-semibold transition-colors ${
-              !currentSubpath ? 'text-emerald-400' : 'text-slate-400 hover:text-white'
+              !currentSubpath ? 'text-fuchsia-400' : 'text-slate-400 hover:text-white'
             }`}
           >
             app/public
@@ -87,7 +87,7 @@ export default function FileBrowser({ siteId, onOpenFolder, rootPath }) {
                 <button
                   onClick={() => !isLast && loadFiles(crumbSubpath)}
                   className={`truncate max-w-[120px] transition-colors ${
-                    isLast ? 'text-emerald-400 font-semibold' : 'text-slate-400 hover:text-white'
+                    isLast ? 'text-fuchsia-400 font-semibold' : 'text-slate-400 hover:text-white'
                   }`}
                 >
                   {crumb}
@@ -180,7 +180,7 @@ export default function FileBrowser({ siteId, onOpenFolder, rootPath }) {
           <div className="bg-[#181b21] border border-[#2e3745] rounded-2xl w-full max-w-3xl max-h-[85vh] shadow-2xl flex flex-col overflow-hidden">
             <div className="px-5 py-3 border-b border-[#262d38] flex items-center justify-between bg-[#14171d]">
               <div className="flex items-center space-x-2">
-                <FileText className="w-4 h-4 text-emerald-400" />
+                <FileText className="w-4 h-4 text-fuchsia-400" />
                 <span className="font-mono text-xs font-semibold text-white">{selectedFile}</span>
               </div>
               <button

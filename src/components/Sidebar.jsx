@@ -33,7 +33,7 @@ export default function Sidebar({
             placeholder="Buscar sitios..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-[#111418] border border-[#2d3440] rounded-md pl-8 pr-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition-colors"
+            className="w-full bg-[#111418] border border-[#2d3440] rounded-md pl-8 pr-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-fuchsia-500 transition-colors"
           />
         </div>
 
@@ -43,7 +43,7 @@ export default function Sidebar({
             <button
               onClick={onStartAll}
               title="Iniciar todos"
-              className="p-1 hover:text-emerald-400 hover:bg-emerald-950/40 rounded transition-colors"
+              className="p-1 hover:text-fuchsia-400 hover:bg-fuchsia-950/40 rounded transition-colors"
             >
               <Play className="w-3 h-3 fill-current" />
             </button>
@@ -82,11 +82,11 @@ export default function Sidebar({
                 <div className="flex items-center space-x-2.5 min-w-0">
                   <span className="relative flex h-2.5 w-2.5 shrink-0">
                     {isRunning && (
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-fuchsia-400 opacity-75"></span>
                     )}
                     <span
                       className={`relative inline-flex rounded-full h-2.5 w-2.5 ${
-                        isRunning ? 'bg-emerald-500' : 'bg-slate-600'
+                        isRunning ? 'bg-fuchsia-500' : 'bg-slate-600'
                       }`}
                     ></span>
                   </span>
@@ -119,7 +119,7 @@ export default function Sidebar({
                         onStartSite(site.id);
                       }}
                       title="Iniciar"
-                      className="p-1 text-slate-400 hover:text-emerald-400 hover:bg-emerald-950/40 rounded"
+                      className="p-1 text-slate-400 hover:text-fuchsia-400 hover:bg-fuchsia-950/40 rounded"
                     >
                       <Play className="w-3 h-3 fill-current" />
                     </button>
@@ -131,7 +131,7 @@ export default function Sidebar({
                       if (name) onCloneSite(site.id, name);
                     }}
                     title="Clonar sitio"
-                    className="p-1 text-slate-400 hover:text-emerald-400 hover:bg-emerald-950/40 rounded"
+                    className="p-1 text-slate-400 hover:text-fuchsia-400 hover:bg-fuchsia-950/40 rounded"
                   >
                     <Copy className="w-3 h-3" />
                   </button>
@@ -158,7 +158,7 @@ export default function Sidebar({
       <div className="p-3 border-t border-[#262c36] bg-[#14171c]/50">
         <button
           onClick={onOpenNewSiteModal}
-          className="w-full flex items-center justify-center space-x-2 py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-semibold rounded-md text-xs shadow-sm shadow-emerald-950/40 transition-all hover:scale-[1.01] active:scale-[0.99]"
+          className="w-full flex items-center justify-center space-x-2 py-2 px-3 bg-gradient-to-r from-fuchsia-600 to-pink-600 hover:from-fuchsia-500 hover:to-pink-500 text-white font-semibold rounded-md text-xs shadow-sm shadow-fuchsia-950/40 transition-all hover:scale-[1.01] active:scale-[0.99]"
         >
           <Plus className="w-4 h-4 stroke-[2.5]" />
           <span>Añadir Sitio Local</span>

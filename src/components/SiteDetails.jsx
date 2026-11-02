@@ -107,7 +107,7 @@ export default function SiteDetails({
                 if (onOpenUrl) onOpenUrl(cleanUrl);
                 else window.open(cleanUrl, '_blank');
               }}
-              className="text-blue-400 hover:text-blue-300 underline font-semibold cursor-pointer inline-flex items-center gap-0.5 break-all"
+              className="text-violet-400 hover:text-violet-300 underline font-semibold cursor-pointer inline-flex items-center gap-0.5 break-all"
               title="Abrir este enlace"
             >
               {cleanUrl}
@@ -131,13 +131,13 @@ export default function SiteDetails({
             <span
               className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium ${
                 isRunning
-                  ? 'bg-emerald-950/70 text-emerald-400 border border-emerald-800'
+                  ? 'bg-fuchsia-950/70 text-fuchsia-300 border border-fuchsia-800'
                   : 'bg-slate-800 text-slate-400 border border-slate-700'
               }`}
             >
               <span
                 className={`w-2 h-2 rounded-full ${
-                  isRunning ? 'bg-emerald-400 animate-pulse' : 'bg-slate-500'
+                  isRunning ? 'bg-fuchsia-400 animate-pulse' : 'bg-slate-500'
                 }`}
               />
               {isRunning ? `Activo (Puerto ${site.port})` : 'Detenido'}
@@ -146,7 +146,7 @@ export default function SiteDetails({
           <div className="text-xs text-slate-400 font-mono mt-1 flex items-center space-x-2">
             <span>{site.domain}</span>
             <span>&bull;</span>
-            <span className="text-emerald-400/90 font-sans font-medium">{site.dbEngine}</span>
+            <span className="text-fuchsia-400/90 font-sans font-medium">{site.dbEngine}</span>
           </div>
         </div>
 
@@ -163,7 +163,7 @@ export default function SiteDetails({
           ) : (
             <button
               onClick={() => onStart(site.id)}
-              className="flex items-center space-x-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold rounded-lg text-xs shadow-sm shadow-emerald-950/40 transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-fuchsia-600 to-pink-600 hover:from-fuchsia-500 hover:to-pink-500 text-white font-bold rounded-lg text-xs shadow-sm shadow-fuchsia-950/40 transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
               <Play className="w-3.5 h-3.5 fill-current" />
               <span>Iniciar Sitio</span>
@@ -190,7 +190,7 @@ export default function SiteDetails({
             disabled={!isRunning}
             className={`flex items-center space-x-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-all ${
               isRunning
-                ? 'bg-emerald-950/40 border border-emerald-800/60 hover:bg-emerald-900/40 text-emerald-300'
+                ? 'bg-fuchsia-950/40 border border-fuchsia-800/60 hover:bg-fuchsia-900/40 text-fuchsia-300'
                 : 'bg-[#212630] text-slate-500 cursor-not-allowed opacity-60'
             }`}
           >
@@ -206,7 +206,7 @@ export default function SiteDetails({
             title="Clonar este sitio completamente en 1 segundo"
             className="flex items-center space-x-1.5 px-3 py-2 bg-[#29303d] hover:bg-[#343e4f] text-slate-200 rounded-lg text-xs font-medium transition-colors"
           >
-            <Copy className="w-3.5 h-3.5 text-emerald-400" />
+            <Copy className="w-3.5 h-3.5 text-fuchsia-400" />
             <span>Clonar</span>
           </button>
 
@@ -218,7 +218,7 @@ export default function SiteDetails({
             title="Guardar como Plantilla con plugins y temas instalados"
             className="flex items-center space-x-1.5 px-3 py-2 bg-[#29303d] hover:bg-[#343e4f] text-slate-200 rounded-lg text-xs font-medium transition-colors"
           >
-            <BookmarkPlus className="w-3.5 h-3.5 text-blue-400" />
+            <BookmarkPlus className="w-3.5 h-3.5 text-violet-400" />
             <span>Guardar Plantilla</span>
           </button>
 
@@ -239,7 +239,7 @@ export default function SiteDetails({
             title="Abrir consola terminal interactiva"
             className="flex items-center space-x-1.5 px-3 py-2 bg-[#29303d] hover:bg-[#343e4f] text-slate-200 rounded-lg text-xs font-medium transition-colors"
           >
-            <Terminal className="w-4 h-4 text-emerald-400" />
+            <Terminal className="w-4 h-4 text-fuchsia-400" />
             <span>Terminal</span>
           </button>
         </div>
@@ -264,14 +264,14 @@ export default function SiteDetails({
               onClick={() => setActiveTab(tab.id)}
               className={`flex items-center space-x-2 py-3 border-b-2 transition-colors relative ${
                 isActive
-                  ? 'border-emerald-400 text-emerald-400 font-semibold'
+                  ? 'border-fuchsia-400 text-fuchsia-400 font-semibold'
                   : 'border-transparent text-slate-400 hover:text-slate-200'
               }`}
             >
               <Icon className="w-3.5 h-3.5" />
               <span>{tab.label}</span>
               {typeof tab.badge === 'number' && tab.badge > 0 && (
-                <span className="ml-1 px-1.5 py-0.2 bg-emerald-950 text-emerald-400 border border-emerald-800 rounded-full text-[10px]">
+                <span className="ml-1 px-1.5 py-0.2 bg-fuchsia-950 text-fuchsia-300 border border-fuchsia-800 rounded-full text-[10px]">
                   {tab.badge}
                 </span>
               )}
@@ -305,11 +305,11 @@ export default function SiteDetails({
                   <div>
                     <div className="text-slate-400 text-[11px]">Servidor Web</div>
                     <div className="text-white font-medium mt-0.5 flex items-center space-x-1.5">
-                      <Server className="w-3.5 h-3.5 text-emerald-400" />
+                      <Server className="w-3.5 h-3.5 text-fuchsia-400" />
                       <span>{site.webServer}</span>
                     </div>
                   </div>
-                  <span className="text-[10px] bg-emerald-950/60 text-emerald-400 border border-emerald-900/60 px-2 py-0.5 rounded">
+                  <span className="text-[10px] bg-fuchsia-950/60 text-fuchsia-300 border border-fuchsia-900/60 px-2 py-0.5 rounded">
                     Latencia 1ms
                   </span>
                 </div>
@@ -318,7 +318,7 @@ export default function SiteDetails({
                   <div>
                     <div className="text-slate-400 text-[11px]">Versión de PHP</div>
                     <div className="text-white font-medium mt-0.5 flex items-center space-x-1.5">
-                      <Cpu className="w-3.5 h-3.5 text-emerald-400" />
+                      <Cpu className="w-3.5 h-3.5 text-fuchsia-400" />
                       <span>PHP {site.phpVersion}</span>
                     </div>
                   </div>
@@ -331,11 +331,11 @@ export default function SiteDetails({
                   <div>
                     <div className="text-slate-400 text-[11px]">Motor de Base de Datos</div>
                     <div className="text-white font-medium mt-0.5 flex items-center space-x-1.5">
-                      <Database className="w-3.5 h-3.5 text-emerald-400" />
+                      <Database className="w-3.5 h-3.5 text-fuchsia-400" />
                       <span>{site.dbEngine}</span>
                     </div>
                   </div>
-                  <span className="text-[10px] bg-emerald-950/60 text-emerald-400 border border-emerald-900/60 px-2 py-0.5 rounded">
+                  <span className="text-[10px] bg-fuchsia-950/60 text-fuchsia-300 border border-fuchsia-900/60 px-2 py-0.5 rounded">
                     Instantánea
                   </span>
                 </div>
@@ -346,7 +346,7 @@ export default function SiteDetails({
             <div className="bg-[#181c23] border border-[#2b333f] rounded-xl p-5">
               <h3 className="text-xs uppercase font-bold text-slate-400 tracking-wider mb-4 flex items-center justify-between">
                 <span>Acceso Administrativo WP</span>
-                <span className="text-[11px] text-emerald-400 lowercase font-normal">Auto-configurado</span>
+                <span className="text-[11px] text-fuchsia-400 lowercase font-normal">Auto-configurado</span>
               </h3>
 
               <div className="grid grid-cols-3 gap-4 text-xs">
@@ -359,7 +359,7 @@ export default function SiteDetails({
                       className="text-slate-400 hover:text-white p-1"
                     >
                       {copiedField === 'adminUser' ? (
-                        <Check className="w-3.5 h-3.5 text-emerald-400" />
+                        <Check className="w-3.5 h-3.5 text-fuchsia-400" />
                       ) : (
                         <Copy className="w-3.5 h-3.5" />
                       )}
@@ -376,7 +376,7 @@ export default function SiteDetails({
                       className="text-slate-400 hover:text-white p-1 shrink-0"
                     >
                       {copiedField === 'adminEmail' ? (
-                        <Check className="w-3.5 h-3.5 text-emerald-400" />
+                        <Check className="w-3.5 h-3.5 text-fuchsia-400" />
                       ) : (
                         <Copy className="w-3.5 h-3.5" />
                       )}
@@ -402,7 +402,7 @@ export default function SiteDetails({
                         title="Copiar ruta"
                       >
                         {copiedField === 'sitePath' ? (
-                          <Check className="w-3.5 h-3.5 text-emerald-400" />
+                          <Check className="w-3.5 h-3.5 text-fuchsia-400" />
                         ) : (
                           <Copy className="w-3.5 h-3.5" />
                         )}
@@ -429,7 +429,7 @@ export default function SiteDetails({
               </div>
 
               <div className="flex items-center space-x-3 text-xs">
-                <span className={`text-[11px] font-medium transition-opacity ${savingNotes ? 'text-amber-400' : 'text-emerald-400'}`}>
+                <span className={`text-[11px] font-medium transition-opacity ${savingNotes ? 'text-amber-400' : 'text-fuchsia-400'}`}>
                   {savingNotes ? 'Guardando...' : 'Autoguardado ✓'}
                 </span>
 
@@ -479,7 +479,7 @@ export default function SiteDetails({
                 <h3 className="text-xs uppercase font-bold text-slate-400 tracking-wider">
                   Detalles de la Base de Datos
                 </h3>
-                <span className="text-xs bg-emerald-950 text-emerald-400 border border-emerald-800 px-2 py-0.5 rounded">
+                <span className="text-xs bg-fuchsia-950 text-fuchsia-300 border border-fuchsia-800 px-2 py-0.5 rounded">
                   {site.dbEngine}
                 </span>
               </div>
@@ -510,10 +510,10 @@ export default function SiteDetails({
                 </div>
               </div>
 
-              <div className="p-4 bg-emerald-950/20 border border-emerald-900/40 rounded-lg text-xs text-slate-300 flex items-start space-x-3">
-                <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+              <div className="p-4 bg-fuchsia-950/20 border border-fuchsia-900/40 rounded-lg text-xs text-slate-300 flex items-start space-x-3">
+                <ShieldCheck className="w-5 h-5 text-fuchsia-400 shrink-0 mt-0.5" />
                 <div>
-                  <div className="font-semibold text-emerald-400">Ventaja de velocidad FastWP:</div>
+                  <div className="font-semibold text-fuchsia-400">Ventaja de velocidad FastWP:</div>
                   <p className="mt-0.5 text-slate-300">
                     Al utilizar el motor ultrarrápido SQLite integrado para WordPress, tu base de datos no requiere un servicio MySQL residente en segundo plano. Esto reduce el consumo de RAM a casi 0 MB y permite clonar o respaldar el sitio en milisegundos con solo copiar un archivo.
                   </p>
@@ -529,7 +529,7 @@ export default function SiteDetails({
               <div>
                 <h3 className="text-sm font-semibold text-white">FastWP Mail Catcher</h3>
                 <p className="text-xs text-slate-400">
-                  Captura todos los correos salientes enviados mediante <code className="text-emerald-400">wp_mail()</code> o PHP <code className="text-emerald-400">mail()</code>.
+                  Captura todos los correos salientes enviados mediante <code className="text-fuchsia-400">wp_mail()</code> o PHP <code className="text-fuchsia-400">mail()</code>.
                 </p>
               </div>
               <div className="flex items-center space-x-2">
@@ -539,7 +539,7 @@ export default function SiteDetails({
                   className="flex items-center space-x-1.5 px-3 py-1.5 bg-[#252c38] hover:bg-[#323b4b] text-slate-200 rounded-lg text-xs font-medium transition-colors"
                   title="Comprobar nuevos correos"
                 >
-                  <RotateCw className={`w-3.5 h-3.5 text-blue-400 ${refreshingEmails ? 'animate-spin' : ''}`} />
+                  <RotateCw className={`w-3.5 h-3.5 text-violet-400 ${refreshingEmails ? 'animate-spin' : ''}`} />
                   <span>Actualizar</span>
                 </button>
                 {emails.length > 0 && (
@@ -600,12 +600,12 @@ export default function SiteDetails({
                 >
                   {copiedField === 'allLogs' ? (
                     <>
-                      <Check className="w-3.5 h-3.5 text-emerald-400" />
-                      <span className="text-emerald-400 font-semibold">¡Logs Copiados!</span>
+                      <Check className="w-3.5 h-3.5 text-fuchsia-400" />
+                      <span className="text-fuchsia-400 font-semibold">¡Logs Copiados!</span>
                     </>
                   ) : (
                     <>
-                      <Copy className="w-3.5 h-3.5 text-emerald-400" />
+                      <Copy className="w-3.5 h-3.5 text-fuchsia-400" />
                       <span>Copiar Logs</span>
                     </>
                   )}
@@ -626,7 +626,7 @@ export default function SiteDetails({
                   className="flex items-center space-x-1.5 px-3 py-1.5 bg-[#252c38] hover:bg-[#323b4b] disabled:opacity-40 text-slate-200 rounded-lg text-xs font-medium transition-colors"
                   title="Descargar archivo de texto con los logs"
                 >
-                  <Download className="w-3.5 h-3.5 text-blue-400" />
+                  <Download className="w-3.5 h-3.5 text-violet-400" />
                   <span>Descargar</span>
                 </button>
               </div>
@@ -643,7 +643,7 @@ export default function SiteDetails({
                       log.type === 'stderr'
                         ? 'text-red-400'
                         : log.type === 'system'
-                        ? 'text-emerald-400'
+                        ? 'text-fuchsia-400'
                         : 'text-slate-300'
                     }`}
                   >
@@ -666,7 +666,7 @@ export default function SiteDetails({
             <div className="bg-[#181c23] border border-[#2b333f] w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
               <div className="flex items-center justify-between p-4 border-b border-[#2b333f]">
                 <div className="flex items-center space-x-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-lg bg-violet-500/10 text-violet-400 flex items-center justify-center">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div>
@@ -686,22 +686,22 @@ export default function SiteDetails({
 
               {/* Detected Links Action Bar */}
               {detectedUrls.length > 0 && (
-                <div className="bg-[#10141a] border-b border-[#2b333f] p-3 space-y-2">
-                  <div className="text-[11px] font-semibold text-sky-400 flex items-center space-x-1.5">
-                    <ExternalLink className="w-3.5 h-3.5 text-sky-400" />
+                <div className="bg-[#131620] border-b border-[#2b333f] p-3 space-y-2">
+                  <div className="text-[11px] font-semibold text-violet-300 flex items-center space-x-1.5">
+                    <ExternalLink className="w-3.5 h-3.5 text-violet-400" />
                     <span>{detectedUrls.length === 1 ? 'Enlace de restablecimiento / acción detectado:' : 'Enlaces detectados en el correo:'}</span>
                   </div>
                   <div className="space-y-1.5">
                     {detectedUrls.map((url, i) => (
-                      <div key={i} className="flex items-center justify-between gap-2 bg-[#171b22] border border-sky-500/20 rounded-lg p-2.5">
-                        <span className="text-xs text-sky-200 font-mono truncate select-all">{url}</span>
+                      <div key={i} className="flex items-center justify-between gap-2 bg-[#171b26] border border-violet-500/20 rounded-lg p-2.5">
+                        <span className="text-xs text-violet-200 font-mono truncate select-all">{url}</span>
                         <div className="flex items-center space-x-1.5 shrink-0">
                           <button
                             onClick={() => {
                               if (onOpenUrl) onOpenUrl(url);
                               else window.open(url, '_blank');
                             }}
-                            className="flex items-center space-x-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-md text-xs font-medium transition-colors shadow-sm"
+                            className="flex items-center space-x-1.5 px-3 py-1.5 bg-violet-600 hover:bg-violet-500 text-white rounded-md text-xs font-medium transition-colors shadow-sm"
                             title="Abrir enlace en el navegador"
                           >
                             <ExternalLink className="w-3.5 h-3.5" />
@@ -714,8 +714,8 @@ export default function SiteDetails({
                           >
                             {copiedField === `url_${i}` ? (
                               <>
-                                <Check className="w-3.5 h-3.5 text-emerald-400" />
-                                <span className="text-emerald-400">¡Copiado!</span>
+                                <Check className="w-3.5 h-3.5 text-fuchsia-400" />
+                                <span className="text-fuchsia-400">¡Copiado!</span>
                               </>
                             ) : (
                               <>
@@ -744,8 +744,8 @@ export default function SiteDetails({
                 >
                   {copiedField === 'emailBody' ? (
                     <>
-                      <Check className="w-3.5 h-3.5 text-emerald-400" />
-                      <span className="text-emerald-400">¡Texto Copiado!</span>
+                      <Check className="w-3.5 h-3.5 text-fuchsia-400" />
+                      <span className="text-fuchsia-400">¡Texto Copiado!</span>
                     </>
                   ) : (
                     <>
