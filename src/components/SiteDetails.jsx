@@ -83,6 +83,44 @@ export default function SiteDetails({
     setTimeout(() => setCopiedField(null), 2000);
   };
 
+  const extractUrls = (text) => {
+    if (!text) return [];
+    const urlRegex = /(https?:\/\/[^\s<>"']+)/gi;
+    const matches = text.match(urlRegex) || [];
+    const cleanMatches = matches.map(u => u.replace(/[.,;)]+$/, ''));
+    return Array.from(new Set(cleanMatches));
+  };
+
+  const renderMessageWithLinks = (text) => {
+    if (!text) return '(Sin contenido)';
+    const parts = text.split(/(https?:\/\/[^\s<>"']+)/g);
+    return parts.map((part, index) => {
+      if (part.match(/^https?:\/\//i)) {
+        const cleanUrl = part.replace(/[.,;)]+$/, '');
+        const trailing = part.slice(cleanUrl.length);
+        return (
+          <React.Fragment key={index}>
+            <a
+              href={cleanUrl}
+              onClick={(e) => {
+                e.preventDefault();
+                if (onOpenUrl) onOpenUrl(cleanUrl);
+                else window.open(cleanUrl, '_blank');
+              }}
+              className="text-blue-400 hover:text-blue-300 underline font-semibold cursor-pointer inline-flex items-center gap-0.5 break-all"
+              title="Abrir este enlace"
+            >
+              {cleanUrl}
+              <ExternalLink className="w-3 h-3 inline ml-0.5 opacity-80" />
+            </a>
+            {trailing}
+          </React.Fragment>
+        );
+      }
+      return part;
+    });
+  };
+
   return (
     <div className="flex-1 flex flex-col h-full bg-[#1e232a] overflow-hidden select-none">
       {/* Top Site Bar */}
@@ -620,55 +658,107 @@ export default function SiteDetails({
       </div>
 
       {/* Email Viewer Modal */}
-      {selectedEmail && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-          <div className="bg-[#181c23] border border-[#2b333f] w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
-            <div className="flex items-center justify-between p-4 border-b border-[#2b333f]">
-              <div className="flex items-center space-x-2.5">
-                <div className="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center">
-                  <Mail className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="text-sm font-semibold text-white">{selectedEmail.subject}</h3>
-                  <div className="text-[11px] text-slate-400">
-                    Para: <span className="text-slate-200">{selectedEmail.to}</span> &bull; {selectedEmail.date}
+      {selectedEmail && (() => {
+        const emailText = selectedEmail.message || selectedEmail.body || '';
+        const detectedUrls = extractUrls(emailText);
+        return (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+            <div className="bg-[#181c23] border border-[#2b333f] w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
+              <div className="flex items-center justify-between p-4 border-b border-[#2b333f]">
+                <div className="flex items-center space-x-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center">
+                    <Mail className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-semibold text-white">{selectedEmail.subject}</h3>
+                    <div className="text-[11px] text-slate-400">
+                      Para: <span className="text-slate-200">{selectedEmail.to}</span> &bull; {selectedEmail.date}
+                    </div>
                   </div>
                 </div>
+                <button
+                  onClick={() => setSelectedEmail(null)}
+                  className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
               </div>
-              <button
-                onClick={() => setSelectedEmail(null)}
-                className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            <div className="p-5 overflow-y-auto flex-1 font-mono text-xs text-slate-200 whitespace-pre-wrap leading-relaxed select-text bg-[#111418]">
-              {selectedEmail.message || selectedEmail.body || '(Sin contenido)'}
-            </div>
-            <div className="p-3 bg-[#14171d] border-t border-[#2b333f] flex items-center justify-between text-xs">
-              <span className="text-slate-500">De: {selectedEmail.from || 'wordpress@local.fast'}</span>
-              <button
-                onClick={() => {
-                  copyToClipboard(selectedEmail.message || selectedEmail.body || '', 'emailBody');
-                }}
-                className="flex items-center space-x-1 px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-md font-sans transition-colors"
-              >
-                {copiedField === 'emailBody' ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-emerald-400" />
-                    <span className="text-emerald-400">¡Copiado!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-3.5 h-3.5" />
-                    <span>Copiar Contenido</span>
-                  </>
-                )}
-              </button>
+
+              {/* Detected Links Action Bar */}
+              {detectedUrls.length > 0 && (
+                <div className="bg-[#10141a] border-b border-[#2b333f] p-3 space-y-2">
+                  <div className="text-[11px] font-semibold text-sky-400 flex items-center space-x-1.5">
+                    <ExternalLink className="w-3.5 h-3.5 text-sky-400" />
+                    <span>{detectedUrls.length === 1 ? 'Enlace de restablecimiento / acción detectado:' : 'Enlaces detectados en el correo:'}</span>
+                  </div>
+                  <div className="space-y-1.5">
+                    {detectedUrls.map((url, i) => (
+                      <div key={i} className="flex items-center justify-between gap-2 bg-[#171b22] border border-sky-500/20 rounded-lg p-2.5">
+                        <span className="text-xs text-sky-200 font-mono truncate select-all">{url}</span>
+                        <div className="flex items-center space-x-1.5 shrink-0">
+                          <button
+                            onClick={() => {
+                              if (onOpenUrl) onOpenUrl(url);
+                              else window.open(url, '_blank');
+                            }}
+                            className="flex items-center space-x-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-md text-xs font-medium transition-colors shadow-sm"
+                            title="Abrir enlace en el navegador"
+                          >
+                            <ExternalLink className="w-3.5 h-3.5" />
+                            <span>Abrir enlace</span>
+                          </button>
+                          <button
+                            onClick={() => copyToClipboard(url, `url_${i}`)}
+                            className="flex items-center space-x-1.5 px-3 py-1.5 bg-[#262d38] hover:bg-[#343e4c] text-slate-200 rounded-md text-xs font-medium transition-colors"
+                            title="Copiar este enlace"
+                          >
+                            {copiedField === `url_${i}` ? (
+                              <>
+                                <Check className="w-3.5 h-3.5 text-emerald-400" />
+                                <span className="text-emerald-400">¡Copiado!</span>
+                              </>
+                            ) : (
+                              <>
+                                <Copy className="w-3.5 h-3.5 text-slate-300" />
+                                <span>Copiar enlace</span>
+                              </>
+                            )}
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div className="p-5 overflow-y-auto flex-1 font-mono text-xs text-slate-200 whitespace-pre-wrap leading-relaxed select-text bg-[#111418]">
+                {renderMessageWithLinks(emailText)}
+              </div>
+              <div className="p-3 bg-[#14171d] border-t border-[#2b333f] flex items-center justify-between text-xs">
+                <span className="text-slate-500">De: {selectedEmail.from || 'wordpress@local.fast'}</span>
+                <button
+                  onClick={() => {
+                    copyToClipboard(emailText, 'emailBody');
+                  }}
+                  className="flex items-center space-x-1 px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-md font-sans transition-colors"
+                >
+                  {copiedField === 'emailBody' ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-emerald-400" />
+                      <span className="text-emerald-400">¡Texto Copiado!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5" />
+                      <span>Copiar Todo el Texto</span>
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
     </div>
   );
 }
